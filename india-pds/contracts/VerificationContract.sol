@@ -134,7 +134,7 @@ contract VerificationContract {
         cost = cost + price["rice"]*_rice;
         cost = cost + price["wheat"]*_wheat; 
         cost = cost + price["oil"]*_oil;
-        return cost * 1 ether; 
+        return cost; 
     }
 
     // function replenishBuyerMonthlyQuota(uint256 _aadharNumber) public returns(bool success)
