@@ -8,6 +8,9 @@ contract VerificationContract {
     constructor()
     {
         govt = msg.sender;
+        mocklistSeller();
+        mocklistBuyer();
+        setPrice();
     }
 
     mapping (uint256 => BuyerDetails) aadharToBuyer;
@@ -52,7 +55,7 @@ contract VerificationContract {
     //Mock Seller and Buyer
 
     function mocklistSeller() public returns (bool) 
-    {
+    { 
         aadharToSeller[100] = SellerDetails(
             true,
             100,
@@ -90,7 +93,6 @@ contract VerificationContract {
         return true;
     }
 
-
     // Functions
     function verifySeller(uint256 _aadharNumber) public view returns(bool)
     {
@@ -104,18 +106,26 @@ contract VerificationContract {
 
     function getBuyerCurrentMonthlyQuota(uint256 _aadharNumber ) public view returns
     (
-        BuyerMontlyQuota memory _buyerMonthlyQuota
+        uint256 _rice,
+        uint256 _wheat,
+        uint256 _oil
     )
     {
-        _buyerMonthlyQuota = aadharToBuyer[_aadharNumber].buyerMonthlyQuota; 
+        _rice = aadharToBuyer[_aadharNumber].buyerMonthlyQuota.rice;
+        _wheat = aadharToBuyer[_aadharNumber].buyerMonthlyQuota.wheat;
+        _oil = aadharToBuyer[_aadharNumber].buyerMonthlyQuota.oil; 
     }
 
     function getSellerCurrentStock(uint256 _aadharNumber ) public view returns
     (
-        SellerStock memory _sellerStock
+        uint256 _rice,
+        uint256 _wheat,
+        uint256 _oil
     )
     {
-        _sellerStock = aadharToSeller[_aadharNumber].sellerStock; 
+        _rice = aadharToSeller[_aadharNumber].sellerStock.rice;
+        _wheat = aadharToSeller[_aadharNumber].sellerStock.wheat;
+        _oil = aadharToSeller[_aadharNumber].sellerStock.oil; 
     }
 
     function priceCalc(uint256 _rice, uint256 _wheat, uint256 _oil) public view returns(uint256)
